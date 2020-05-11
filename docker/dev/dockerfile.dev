@@ -1,0 +1,6 @@
+FROM node:14.2.0-slim
+WORKDIR /usr/app
+COPY package.json yarn.lock tsconfig.json ./
+RUN yarn
+COPY . .
+CMD ["yarn","start:dev"]
