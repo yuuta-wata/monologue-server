@@ -14,10 +14,16 @@ type Query {
 
 type Mutation {
   usersRegister(registerInput: RegisterInput!): Boolean!
+  usersLogin(loginInput: LoginInput!): Boolean!
 }
 
 input RegisterInput {
   nickname: String!
+  email: String!
+  password: String!
+}
+
+input LoginInput {
   email: String!
   password: String!
 }
