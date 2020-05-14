@@ -15,6 +15,7 @@ type Query {
 type Mutation {
   usersRegister(registerInput: RegisterInput!): Boolean!
   usersLogin(loginInput: LoginInput!): Boolean!
+  logOut: Boolean!
 }
 
 input RegisterInput {

@@ -32,4 +32,23 @@ export class AuthService {
       );
     }
   }
+
+  // アクセストークンを削除する
+  async clearCookiesToken(res: Response, token: string) {
+    try {
+      res.clearCookie('jid', token);
+      return true;
+    } catch {
+      throw new UnauthorizedException('Cookieを削除出来ませんでした。');
+    }
+  }
+
+  // トークンを検証
+  async verify(token: string) {
+    try {
+      return await this.jwtService.verify(token);
+    } catch {
+      throw new UnauthorizedException('再度ログインしてください。');
+    }
+  }
 }
