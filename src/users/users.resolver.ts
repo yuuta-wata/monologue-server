@@ -8,7 +8,7 @@ import { UsersDto } from './dto/users.dto';
 import { LoginInput } from './input/loginInput';
 import { LoginGuard } from '../auth/LoginGuards';
 import { GetToken } from '../customDecorator/getToken';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 interface MyContext {
   res: Response;

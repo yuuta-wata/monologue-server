@@ -1,8 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Users } from './entity/users.entity';
 import { Repository } from 'typeorm';
 import { hash, compare } from 'bcryptjs';
+
+import { Users } from './entity/users.entity';
 
 @Injectable()
 export class UsersService {
