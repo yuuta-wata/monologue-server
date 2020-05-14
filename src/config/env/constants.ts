@@ -1,0 +1,1 @@
+export const ENV_CONFIG_OPTIONS = 'ENV_CONFIG_OPTIONS';
