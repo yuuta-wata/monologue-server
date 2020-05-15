@@ -25,13 +25,12 @@ export class UsersService {
     const hashedPassword = await hash(password, 12);
 
     try {
-      await this.usersRepository
-        .create({
-          nickname: nickname,
-          email: email,
-          password: hashedPassword,
-        })
-        .save();
+      const users = this.usersRepository.create({
+        nickname: nickname,
+        email: email,
+        password: hashedPassword,
+      });
+      await this.usersRepository.save(users);
 
       return true;
     } catch {
@@ -45,19 +44,19 @@ export class UsersService {
     inputEmail: string,
     inputPassword: string,
   ): Promise<Users> {
-    const user = await this.usersRepository.findOne({
+    const users = await this.usersRepository.findOne({
       where: { email: inputEmail },
     });
 
-    if (typeof user === 'undefined') {
+    if (typeof users === 'undefined') {
       throw new UnauthorizedException('ユーザーが見つかりませんでした。');
     }
 
-    const valid = await compare(inputPassword, user.password);
+    const valid = await compare(inputPassword, users.password);
     if (!valid) {
       throw new UnauthorizedException('パスワードが間違ってます。');
     }
 
-    return user;
+    return users;
   }
 }

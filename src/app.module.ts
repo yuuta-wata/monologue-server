@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmConfig } from './config/db/typeOrmConfig';
 import { AuthModule } from './auth/auth.module';
+import { TweetModule } from './tweet/tweet.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    TweetModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,11 +4,11 @@ import { Response, Request } from 'express';
 
 import { UsersService } from './users.service';
 import { RegisterInput } from './input/registerInput';
-import { UsersDto } from './dto/users.dto';
 import { LoginInput } from './input/loginInput';
 import { LoginGuard } from '../auth/LoginGuards';
 import { GetToken } from '../customDecorator/getToken';
 import { AuthService } from '../auth/auth.service';
+import { Users } from './entity/users.entity';
 
 interface MyContext {
   res: Response;
@@ -22,7 +22,7 @@ export class UsersResolver {
     private readonly authService: AuthService,
   ) {}
 
-  @Query(() => [UsersDto])
+  @Query(() => [Users])
   async getAllUsers() {
     return await this.usersService.allUsers();
   }
