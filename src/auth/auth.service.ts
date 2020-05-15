@@ -12,6 +12,7 @@ export class AuthService {
     const token = this.jwtService.sign({
       userId: users.id,
       userEmail: users.email,
+      nickName: users.nickname,
     });
     if (typeof token === 'undefined') {
       throw new UnauthorizedException(

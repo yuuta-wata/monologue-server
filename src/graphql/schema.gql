@@ -2,20 +2,30 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type UsersDto {
-  id: ID!
+type Users {
+  id: Float!
   nickname: String!
   email: String!
 }
 
+type Tweet {
+  id: Float!
+  userid: Float!
+  nickname: String!
+  tweet: String!
+}
+
 type Query {
-  getAllUsers: [UsersDto!]!
+  getAllUsers: [Users!]!
+  getAllTweet: [Tweet!]!
+  getTweet: [Tweet!]!
 }
 
 type Mutation {
   usersRegister(registerInput: RegisterInput!): Boolean!
   usersLogin(loginInput: LoginInput!): Boolean!
   logOut: Boolean!
+  createTweet(tweetInput: TweetInput!): Boolean!
 }
 
 input RegisterInput {
@@ -27,4 +37,8 @@ input RegisterInput {
 input LoginInput {
   email: String!
   password: String!
+}
+
+input TweetInput {
+  tweet: String!
 }
