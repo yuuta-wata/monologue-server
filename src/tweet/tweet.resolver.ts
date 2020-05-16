@@ -3,8 +3,8 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { TweetService } from './tweet.service';
 import { Tweet } from './entity/tweet.entity';
 import { TweetInput } from './input/tweetInput';
-import { GetToken } from 'src/customDecorator/getToken';
-import { AuthService } from 'src/auth/auth.service';
+import { GetToken } from '../customDecorator/getToken';
+import { AuthService } from '../auth/auth.service';
 
 @Resolver('Tweet')
 export class TweetResolver {
@@ -31,5 +31,14 @@ export class TweetResolver {
   ) {
     const payload = await this.authService.verify(token);
     return await this.tweetService.create(payload, tweet);
+  }
+
+  @Mutation(() => Boolean)
+  async deleteTweet(
+    @Args('tweetId') tweetId: number,
+    @GetToken() token: string,
+  ) {
+    const payload = await this.authService.verify(token);
+    return await this.tweetService.delete(tweetId, payload);
   }
 }
