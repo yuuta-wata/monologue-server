@@ -59,4 +59,30 @@ export class UsersService {
 
     return users;
   }
+
+  async accountDeleting(nickname: string, email: string, password: string) {
+    const users = await this.usersRepository.findOne({
+      where: { nickname: nickname, email: email },
+    });
+
+    if (typeof users === 'undefined') {
+      throw new UnauthorizedException('入力された情報が正しくありません。');
+    }
+
+    const valid = await compare(password, users.password);
+    if (!valid) {
+      throw new UnauthorizedException('入力された情報が正しくありません。');
+    }
+
+    try {
+      await this.usersRepository.delete({
+        id: users.id,
+        nickname: users.nickname,
+        email: users.email,
+        password: users.password,
+      });
+    } catch {
+      throw new UnauthorizedException('アカウントを削除出来ませんでした。');
+    }
+  }
 }

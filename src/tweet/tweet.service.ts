@@ -49,4 +49,13 @@ export class TweetService {
       throw new UnauthorizedException('ツイートを削除出来ませんでした。');
     }
   }
+
+  async allDelete(payload: JwtPayload): Promise<boolean> {
+    try {
+      await this.tweetRepository.delete({ userid: payload.userId });
+      return true;
+    } catch {
+      throw new UnauthorizedException('ツイートを削除出来ませんでした。');
+    }
+  }
 }

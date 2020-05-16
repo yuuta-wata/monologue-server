@@ -9,6 +9,8 @@ import { LoginGuard } from '../auth/LoginGuards';
 import { GetToken } from '../customDecorator/getToken';
 import { AuthService } from '../auth/auth.service';
 import { Users } from './entity/users.entity';
+import { DeleteAccountInput } from './input/deleteAccountInput';
+import { TweetService } from '../tweet/tweet.service';
 
 interface MyContext {
   res: Response;
@@ -20,6 +22,7 @@ export class UsersResolver {
   constructor(
     private readonly usersService: UsersService,
     private readonly authService: AuthService,
+    private readonly tweetService: TweetService,
   ) {}
 
   @Query(() => [Users])
@@ -43,5 +46,22 @@ export class UsersResolver {
   @Mutation(() => Boolean)
   async logOut(@Context() ctx: MyContext, @GetToken() token: string) {
     return await this.authService.clearCookiesToken(ctx.res, token);
+  }
+
+  @Mutation(() => String)
+  async deleteAccount(
+    @Args('DeleteAccountInput')
+    { nickname, email, password }: DeleteAccountInput,
+    @GetToken() token: string,
+    @Context() ctx: MyContext,
+  ) {
+    const payload = await this.authService.verify(token);
+    // アカウントを削除する
+    await this.usersService.accountDeleting(nickname, email, password);
+    // 特定したユーザーの全ツイートを削除
+    await this.tweetService.allDelete(payload);
+    // クッキー削除
+    await this.authService.clearCookiesToken(ctx.res, token);
+    return 'アカウントを削除しました。';
   }
 }
