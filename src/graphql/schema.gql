@@ -25,6 +25,7 @@ type Mutation {
   usersRegister(registerInput: RegisterInput!): Boolean!
   usersLogin(loginInput: LoginInput!): Boolean!
   logOut: Boolean!
+  deleteAccount(DeleteAccountInput: DeleteAccountInput!): String!
   createTweet(tweetInput: TweetInput!): Boolean!
   deleteTweet(tweetId: Float!): Boolean!
 }
@@ -36,6 +37,12 @@ input RegisterInput {
 }
 
 input LoginInput {
+  email: String!
+  password: String!
+}
+
+input DeleteAccountInput {
+  nickname: String!
   email: String!
   password: String!
 }

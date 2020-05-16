@@ -9,5 +9,6 @@ import { AuthModule } from '../auth/auth.module';
 @Module({
   imports: [TypeOrmModule.forFeature([Tweet]), AuthModule],
   providers: [TweetService, TweetResolver],
+  exports: [TweetService],
 })
 export class TweetModule {}
