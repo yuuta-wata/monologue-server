@@ -2,6 +2,9 @@ import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
+import { Tweet } from 'src/tweet/entity/tweet.entity';
+import { Users } from 'src/users/entity/users.entity';
+
 @Injectable()
 export class TypeOrmConfig implements TypeOrmOptionsFactory {
   constructor(private readonly configService: ConfigService) {}
@@ -15,7 +18,7 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
       username: this.configService.get('TYPEORM_USERNAME'),
       password: this.configService.get('TYPEORM_PASSWORD'),
       database: this.configService.get('TYPEORM_DATABASE'),
-      entities: ['dist/**/*.entity.js'],
+      entities: [Users, Tweet],
       synchronize: true,
     };
   }

@@ -26,6 +26,7 @@ type Mutation {
   usersLogin(loginInput: LoginInput!): Boolean!
   logOut: Boolean!
   createTweet(tweetInput: TweetInput!): Boolean!
+  deleteTweet(tweetId: Float!): Boolean!
 }
 
 input RegisterInput {
