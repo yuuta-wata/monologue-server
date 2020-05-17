@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { hash, compare } from 'bcryptjs';
 
 import { Users } from './entity/users.entity';
+import { JwtPayload } from '../interfaces/jwtPayload';
 
 @Injectable()
 export class UsersService {
@@ -14,6 +15,12 @@ export class UsersService {
 
   async allUsers(): Promise<Users[]> {
     return this.usersRepository.find();
+  }
+
+  async user(payload: JwtPayload): Promise<Users> {
+    return await this.usersRepository.findOne({
+      where: { id: payload.userId },
+    });
   }
 
   // 新規登録
