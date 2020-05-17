@@ -30,6 +30,12 @@ export class UsersResolver {
     return await this.usersService.allUsers();
   }
 
+  @Query(() => Users)
+  async getUser(@GetToken() token: string) {
+    const payload = await this.authService.verify(token);
+    return await this.usersService.user(payload);
+  }
+
   @Mutation(() => Boolean)
   async usersRegister(
     @Args('registerInput') { nickname, email, password }: RegisterInput,

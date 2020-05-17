@@ -2,8 +2,7 @@ import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { Tweet } from 'src/tweet/entity/tweet.entity';
-import { Users } from 'src/users/entity/users.entity';
+import { getMetadataArgsStorage } from 'typeorm';
 
 @Injectable()
 export class TypeOrmConfig implements TypeOrmOptionsFactory {
@@ -18,8 +17,9 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
       username: this.configService.get('TYPEORM_USERNAME'),
       password: this.configService.get('TYPEORM_PASSWORD'),
       database: this.configService.get('TYPEORM_DATABASE'),
-      entities: [Users, Tweet],
+      entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
       synchronize: true,
+      keepConnectionAlive: true,
     };
   }
 }

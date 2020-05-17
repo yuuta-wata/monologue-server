@@ -17,6 +17,7 @@ type Tweet {
 
 type Query {
   getAllUsers: [Users!]!
+  getUser: Users!
   getAllTweet: [Tweet!]!
   getTweet: [Tweet!]!
 }
